@@ -1,0 +1,14 @@
+{
+  "home": "Home",
+  "welcome": "Welcome to the Fastify Project",
+  "landing_text": "This is a multilingual Fastify + EJS demo.",
+  "signup": "Sign Up",
+  "login": "Login",
+  "logout": "Logout",
+  "dashboard": "Dashboard",
+  "dashboard_text": "This is the dashboard page.",
+  "profile": "Profile",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password"
+}

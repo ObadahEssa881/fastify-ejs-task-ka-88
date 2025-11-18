@@ -1,14 +1,18 @@
+
 import fp from "fastify-plugin";
+import fastifyStatic from "@fastify/static";
 import fastifyView from "@fastify/view";
-import ejs from "ejs";
 import path from "path";
 
 export default fp(async (fastify) => {
+  fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "..", "public"),
+    prefix: "/public/",
+  });
+
   fastify.register(fastifyView, {
-    engine: {
-      ejs,
-    },
+    engine: { ejs: require("ejs") },
     root: path.join(__dirname, "..", "views"),
-    includeViewExtension: true,
+    layout: "layout.ejs",
   });
 });

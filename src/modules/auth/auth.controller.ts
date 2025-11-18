@@ -55,9 +55,9 @@ const login = async (req: FastifyRequest, reply: FastifyReply) => {
 };
 
 const logout = async (req: FastifyRequest, reply: FastifyReply) => {
-  const { lang } = req.params as ParamsWithLang;
-  (req as any).session.delete(); // clears all keys
-  return reply.redirect(`/${lang ?? "en"}`);
+  req.session.destroy();
+  const lang = (req.params as any)?.lang || "en";
+  return reply.redirect(`/${lang}/login`);
 };
 
 const dashboard = async (req: FastifyRequest, reply: FastifyReply) => {

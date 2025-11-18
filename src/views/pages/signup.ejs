@@ -1,0 +1,8 @@
+<h1><%= t("signup") %></h1>
+
+<form action="/<%= lang %>/auth/signup" method="POST">
+    <input name="name" placeholder="<%= t('name') %>">
+    <input name="email" placeholder="<%= t('email') %>">
+    <input type="password" name="password" placeholder="<%= t('password') %>">
+    <button class="btn"><%= t("signup") %></button>
+</form>

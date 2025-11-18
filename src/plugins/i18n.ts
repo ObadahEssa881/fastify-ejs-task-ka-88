@@ -1,16 +1,22 @@
 import fp from "fastify-plugin";
-import i18next from "i18next";
-import Backend from "i18next-fs-backend";
+import fs from "fs";
 import path from "path";
+import { FastifyInstance } from "fastify";
 
-export default fp(async (fastify) => {
-  await i18next.use(Backend).init({
-    lng: process.env.DEFAULT_LANG || "ar",
-    fallbackLng: "en",
-    backend: {
-      loadPath: path.join(__dirname, "..", "locales", "{{lng}}.json"),
-    },
+export default fp(async (fastify: FastifyInstance) => {
+  fastify.decorate("t", (lang: string, key: string) => {
+    try {
+      const filePath = path.join(__dirname, "..", "locales", `${lang}.json`);
+      const raw = fs.readFileSync(filePath, "utf8");
+      const json = JSON.parse(raw);
+      return json[key] || key;
+    } catch {
+      return key;
+    }
   });
 
-  fastify.decorate("i18n", i18next);
+  fastify.addHook("preHandler", async (req, reply) => {
+    const lang = (req.params as any)?.lang ?? "en";
+    reply.locals = { t: (key: string) => fastify.t(lang, key), lang };
+  });
 });
