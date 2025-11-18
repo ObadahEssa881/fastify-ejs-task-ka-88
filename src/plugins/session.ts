@@ -1,23 +1,23 @@
 import fp from "fastify-plugin";
-import fs from "fs";
-import fastifySecureSession from "fastify-secure-session";
+import fastifyCookie from "@fastify/cookie";
+import fastifySession from "@fastify/session";
 
 export default fp(async (fastify) => {
-  const secretFile = process.env.SESSION_SECRET || "./session-secret.key";
-  if (!fs.existsSync(secretFile)) {
-    throw new Error(
-      `Session secret file not found: ${secretFile}. Generate via: head -c 32 /dev/urandom > ${secretFile}`
-    );
+  const SESSION_SECRET = process.env.SESSION_SECRET;
+
+  if (!SESSION_SECRET) {
+    throw new Error("SESSION_SECRET missing in env");
   }
-  const key = fs.readFileSync(secretFile);
-  fastify.register(fastifySecureSession, {
-    key,
+
+  fastify.register(fastifyCookie);
+
+  fastify.register(fastifySession, {
+    secret: SESSION_SECRET,
     cookie: {
       path: "/",
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, 
+      secure: false,
     },
   });
 });

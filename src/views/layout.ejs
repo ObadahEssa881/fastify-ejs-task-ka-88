@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fastify App</title>
+    <link rel="stylesheet" href="/public/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/<%= lang %>"><%= t("home") %></a>
+        <a href="/<%= lang %>/signup"><%= t("signup") %></a>
+        <a href="/<%= lang %>/login"><%= t("login") %></a>
+        <a href="/<%= lang %>/dashboard"><%= t("dashboard") %></a>
+        <a href="/<%= lang %>/profile"><%= t("profile") %></a>
+
+        <span class="lang-switch">
+          <a href="/en">EN</a> | <a href="/ar">AR</a>
+        </span>
+      </nav>
+    </header>
+
+    <main><%- body %></main>
+  </body>
+</html>
