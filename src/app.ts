@@ -7,6 +7,7 @@ import prismaPlugin from "./plugins/prisma";
 import authRoutes from "./modules/auth/auth.routes";
 import uiRoutes from "./modules/ui/ui.routes";
 import authPlugin from "./modules/auth/auth.plugin";
+import originalPathPlugin from "./plugins/originalPath";
 
 const app = Fastify({ logger: true });
 
@@ -15,6 +16,7 @@ app.register(viewPlugin);
 app.register(sessionPlugin);
 app.register(i18nPlugin);
 app.register(prismaPlugin);
+app.register(originalPathPlugin);
 
 app.get("/", async (req, reply) => {
   const defaultLang = process.env.DEFAULT_LANG ?? "ar";
