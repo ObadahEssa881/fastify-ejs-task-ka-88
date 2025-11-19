@@ -13,10 +13,10 @@
         <a href="/<%= lang %>/login"><%= t("login") %></a>
         <a href="/<%= lang %>/dashboard"><%= t("dashboard") %></a>
         <a href="/<%= lang %>/profile"><%= t("profile") %></a>
-
-        <span class="lang-switch">
-          <a href="/en">EN</a> | <a href="/ar">AR</a>
-        </span>
+        <div class="lang-switch">
+          <a href="/ar<%= originalPath %>">AR</a> |
+          <a href="/en<%= originalPath %>">EN</a>
+        </div>
       </nav>
     </header>
 
